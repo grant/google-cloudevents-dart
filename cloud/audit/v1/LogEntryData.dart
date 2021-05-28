@@ -1,4 +1,4 @@
-// Copyright 2020 Google LLC
+// Copyright 2021 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -44,7 +44,8 @@ class LogEntryData {
 }
 
 /**
- * Information about an operation associated with the log entry, if applicable.
+ * Information about an operation associated with the log entry, if
+ * applicable.
  */
 class Operation {
     Operation({
@@ -61,7 +62,8 @@ class Operation {
 }
 
 /**
- * The log entry payload, which is always an AuditLog for Cloud Audit Log events.
+ * The log entry payload, which is always an AuditLog for Cloud Audit Log
+ * events.
  */
 class ProtoPayload {
     ProtoPayload({
@@ -85,7 +87,7 @@ class ProtoPayload {
     List<AuthorizationInfo> authorizationInfo;
     Metadata metadata;
     String methodName;
-    String numResponseItems;
+    int numResponseItems;
     Request request;
     RequestMetadata requestMetadata;
     ResourceLocation resourceLocation;
@@ -295,7 +297,7 @@ class DestinationAttributes {
 
     String ip;
     Map<String, String> labels;
-    String port;
+    int port;
     String principal;
     String regionCode;
 }
@@ -336,7 +338,7 @@ class RequestAttributes {
     String query;
     String reason;
     String scheme;
-    String size;
+    int size;
     DateTime time;
 }
 
@@ -432,7 +434,7 @@ class Response {
 }
 
 /**
- * Deprecated, use `metadata` field instead.
+ * Deprecated: Use `metadata` field instead.
  * Other service-specific data about the request, response, and other
  * activities.
  * When the JSON object represented here has a proto equivalent, the proto
@@ -568,3 +570,5 @@ class Resource {
     Map<String, String> labels;
     String type;
 }
+
+enum InsertId { DEFAULT, DEBUG, INFO, NOTICE, WARNING, ERROR, CRITICAL, ALERT, EMERGENCY }

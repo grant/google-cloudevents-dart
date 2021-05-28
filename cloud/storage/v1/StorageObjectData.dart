@@ -1,4 +1,4 @@
-// Copyright 2020 Google LLC
+// Copyright 2021 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -59,18 +59,18 @@ class StorageObjectData {
     CustomerEncryption customerEncryption;
     String etag;
     bool eventBasedHold;
-    String generation;
+    int generation;
     String id;
     String kind;
     String kmsKeyName;
     String md5Hash;
     String mediaLink;
     Map<String, String> metadata;
-    String metageneration;
+    int metageneration;
     String name;
     DateTime retentionExpirationTime;
     String selfLink;
-    String size;
+    int size;
     String storageClass;
     bool temporaryHold;
     DateTime timeCreated;

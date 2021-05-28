@@ -1,4 +1,4 @@
-// Copyright 2020 Google LLC
+// Copyright 2021 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -139,7 +139,7 @@ class Options {
         this.workerPool,
     });
 
-    String diskSizeGb;
+    int diskSizeGb;
     List<String> env;
     dynamic logging;
     dynamic logStreamingOption;
@@ -159,6 +159,8 @@ enum LoggingEnum { LOGGING_UNSPECIFIED, LEGACY, GCS_ONLY }
 enum MachineTypeEnum { UNSPECIFIED, N1_HIGHCPU_8, N1_HIGHCPU_32 }
 
 enum RequestedVerifyOptionEnum { NOT_VERIFIED, VERIFIED }
+
+enum SourceProvenanceHashEnum { NONE, SHA256, MD5 }
 
 enum SubstitutionOptionEnum { MUST_MATCH, ALLOW_LOOSE }
 
@@ -190,7 +192,7 @@ class QueueTtl {
     });
 
     int nanos;
-    String seconds;
+    int seconds;
 }
 
 /**
@@ -211,7 +213,7 @@ class Results {
     List<String> buildStepImages;
     List<String> buildStepOutputs;
     List<Image> images;
-    String numArtifacts;
+    int numArtifacts;
 }
 
 /**
@@ -331,7 +333,7 @@ class StorageSourceClass {
     });
 
     String bucket;
-    String generation;
+    int generation;
     String object;
 }
 
@@ -370,8 +372,6 @@ class FileHashElement {
     dynamic type;
     String value;
 }
-
-enum TypeEnum { NONE, SHA256, MD5 }
 
 /**
  * A copy of the build's `source.repo_source`, if exists, with any
@@ -420,7 +420,7 @@ class ResolvedStorageSourceClass {
     });
 
     String bucket;
-    String generation;
+    int generation;
     String object;
 }
 
@@ -491,7 +491,7 @@ class StepTimeout {
     });
 
     int nanos;
-    String seconds;
+    int seconds;
 }
 
 /**
@@ -523,7 +523,7 @@ class BuildEventDataTimeout {
     });
 
     int nanos;
-    String seconds;
+    int seconds;
 }
 
 /**

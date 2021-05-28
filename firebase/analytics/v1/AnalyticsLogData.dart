@@ -1,4 +1,4 @@
-// Copyright 2020 Google LLC
+// Copyright 2021 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -41,8 +41,8 @@ class EventDim {
     String date;
     String name;
     Map<String, AnalyticsValue> params;
-    String previousTimestampMicros;
-    String timestampMicros;
+    int previousTimestampMicros;
+    int timestampMicros;
     double valueInUsd;
 }
 
@@ -60,7 +60,7 @@ class AnalyticsValue {
 
     double doubleValue;
     double floatValue;
-    String intValue;
+    int intValue;
     String stringValue;
 }
 
@@ -83,7 +83,7 @@ class UserDim {
     AppInfo appInfo;
     BundleInfo bundleInfo;
     DeviceInfo deviceInfo;
-    String firstOpenTimestampMicros;
+    int firstOpenTimestampMicros;
     GeoInfo geoInfo;
     LtvInfo ltvInfo;
     TrafficSource trafficSource;
@@ -120,7 +120,7 @@ class BundleInfo {
     });
 
     int bundleSequenceId;
-    String serverTimestampOffsetMicros;
+    int serverTimestampOffsetMicros;
 }
 
 /**
@@ -207,7 +207,7 @@ class UserProperty {
     });
 
     int index;
-    String setTimestampUsec;
+    int setTimestampUsec;
     Value value;
 }
 
@@ -227,6 +227,6 @@ class Value {
 
     double doubleValue;
     double floatValue;
-    String intValue;
+    int intValue;
     String stringValue;
 }

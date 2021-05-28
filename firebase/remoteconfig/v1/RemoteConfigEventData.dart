@@ -1,4 +1,4 @@
-// Copyright 2020 Google LLC
+// Copyright 2021 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -27,16 +27,21 @@ class RemoteConfigEventData {
     });
 
     String description;
-    String rollbackSource;
+    int rollbackSource;
     dynamic updateOrigin;
     DateTime updateTime;
     dynamic updateType;
     UpdateUser updateUser;
-    String versionNumber;
+    int versionNumber;
 }
 
+enum UpdateOriginEnum { REMOTE_CONFIG_UPDATE_ORIGIN_UNSPECIFIED, CONSOLE, REST_API, ADMIN_SDK_NODE }
+
+enum UpdateTypeEnum { REMOTE_CONFIG_UPDATE_TYPE_UNSPECIFIED, INCREMENTAL_UPDATE, FORCED_UPDATE, ROLLBACK }
+
 /**
- * Aggregation of all metadata fields about the account that performed the update.
+ * Aggregation of all metadata fields about the account that performed the
+ * update.
  */
 class UpdateUser {
     UpdateUser({

@@ -1,4 +1,4 @@
-// Copyright 2020 Google LLC
+// Copyright 2021 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -70,7 +70,7 @@ class OldValueField {
     String bytesValue;
     double doubleValue;
     GeoPointValue geoPointValue;
-    String integerValue;
+    int integerValue;
     MapValue mapValue;
     dynamic nullValue;
     String referenceValue;
@@ -101,7 +101,7 @@ class MapValueField {
     String bytesValue;
     double doubleValue;
     GeoPointValue geoPointValue;
-    String integerValue;
+    int integerValue;
     MapValue mapValue;
     dynamic nullValue;
     String referenceValue;
@@ -143,7 +143,7 @@ class ValueElement {
     String bytesValue;
     double doubleValue;
     GeoPointValue geoPointValue;
-    String integerValue;
+    int integerValue;
     MapValue mapValue;
     dynamic nullValue;
     String referenceValue;
@@ -177,6 +177,8 @@ class GeoPointValue {
     double latitude;
     double longitude;
 }
+
+enum BytesValue { NULL_VALUE }
 
 /**
  * A DocumentMask object that lists changed fields.
