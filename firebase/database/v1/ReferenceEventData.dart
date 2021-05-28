@@ -12,6 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// To parse this JSON data, do
+//
+//     final referenceEventData = referenceEventDataFromJson(jsonString);
+
+import 'dart:convert';
+
+ReferenceEventData referenceEventDataFromJson(String str) => ReferenceEventData.fromJson(json.decode(str));
+
+String referenceEventDataToJson(ReferenceEventData data) => json.encode(data.toJson());
+
 /**
  * The data within all Firebase Real Time Database reference events.
  */
@@ -23,4 +33,14 @@ class ReferenceEventData {
 
     Map<String, dynamic> data;
     Map<String, dynamic> delta;
+
+    factory ReferenceEventData.fromJson(Map<String, dynamic> json) => ReferenceEventData(
+        data: json["data"] == null ? null : Map.from(json["data"]).map((k, v) => MapEntry<String, dynamic>(k, v)),
+        delta: json["delta"] == null ? null : Map.from(json["delta"]).map((k, v) => MapEntry<String, dynamic>(k, v)),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "data": data == null ? null : Map.from(data).map((k, v) => MapEntry<String, dynamic>(k, v)),
+        "delta": delta == null ? null : Map.from(delta).map((k, v) => MapEntry<String, dynamic>(k, v)),
+    };
 }

@@ -12,6 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// To parse this JSON data, do
+//
+//     final logEntryData = logEntryDataFromJson(jsonString);
+
+import 'dart:convert';
+
+LogEntryData logEntryDataFromJson(String str) => LogEntryData.fromJson(json.decode(str));
+
+String logEntryDataToJson(LogEntryData data) => json.encode(data.toJson());
+
 /**
  * The data within all Cloud Audit Logs log entry events.
  */
@@ -41,6 +51,34 @@ class LogEntryData {
     String spanId;
     DateTime timestamp;
     String trace;
+
+    factory LogEntryData.fromJson(Map<String, dynamic> json) => LogEntryData(
+        insertId: json["insertId"] == null ? null : json["insertId"],
+        labels: json["labels"] == null ? null : Map.from(json["labels"]).map((k, v) => MapEntry<String, String>(k, v)),
+        logName: json["logName"] == null ? null : json["logName"],
+        operation: json["operation"] == null ? null : Operation.fromJson(json["operation"]),
+        protoPayload: json["protoPayload"] == null ? null : ProtoPayload.fromJson(json["protoPayload"]),
+        receiveTimestamp: json["receiveTimestamp"] == null ? null : DateTime.parse(json["receiveTimestamp"]),
+        resource: json["resource"] == null ? null : Resource.fromJson(json["resource"]),
+        severity: json["severity"],
+        spanId: json["spanId"] == null ? null : json["spanId"],
+        timestamp: json["timestamp"] == null ? null : DateTime.parse(json["timestamp"]),
+        trace: json["trace"] == null ? null : json["trace"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "insertId": insertId == null ? null : insertId,
+        "labels": labels == null ? null : Map.from(labels).map((k, v) => MapEntry<String, dynamic>(k, v)),
+        "logName": logName == null ? null : logName,
+        "operation": operation == null ? null : operation.toJson(),
+        "protoPayload": protoPayload == null ? null : protoPayload.toJson(),
+        "receiveTimestamp": receiveTimestamp == null ? null : receiveTimestamp.toIso8601String(),
+        "resource": resource == null ? null : resource.toJson(),
+        "severity": severity,
+        "spanId": spanId == null ? null : spanId,
+        "timestamp": timestamp == null ? null : timestamp.toIso8601String(),
+        "trace": trace == null ? null : trace,
+    };
 }
 
 /**
@@ -59,6 +97,20 @@ class Operation {
     String id;
     bool last;
     String producer;
+
+    factory Operation.fromJson(Map<String, dynamic> json) => Operation(
+        first: json["first"] == null ? null : json["first"],
+        id: json["id"] == null ? null : json["id"],
+        last: json["last"] == null ? null : json["last"],
+        producer: json["producer"] == null ? null : json["producer"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "first": first == null ? null : first,
+        "id": id == null ? null : id,
+        "last": last == null ? null : last,
+        "producer": producer == null ? null : producer,
+    };
 }
 
 /**
@@ -97,6 +149,40 @@ class ProtoPayload {
     ServiceData serviceData;
     String serviceName;
     Status status;
+
+    factory ProtoPayload.fromJson(Map<String, dynamic> json) => ProtoPayload(
+        authenticationInfo: json["authenticationInfo"] == null ? null : AuthenticationInfo.fromJson(json["authenticationInfo"]),
+        authorizationInfo: json["authorizationInfo"] == null ? null : List<AuthorizationInfo>.from(json["authorizationInfo"].map((x) => AuthorizationInfo.fromJson(x))),
+        metadata: json["metadata"] == null ? null : Metadata.fromJson(json["metadata"]),
+        methodName: json["methodName"] == null ? null : json["methodName"],
+        numResponseItems: json["numResponseItems"] == null ? null : json["numResponseItems"],
+        request: json["request"] == null ? null : Request.fromJson(json["request"]),
+        requestMetadata: json["requestMetadata"] == null ? null : RequestMetadata.fromJson(json["requestMetadata"]),
+        resourceLocation: json["resourceLocation"] == null ? null : ResourceLocation.fromJson(json["resourceLocation"]),
+        resourceName: json["resourceName"] == null ? null : json["resourceName"],
+        resourceOriginalState: json["resourceOriginalState"] == null ? null : ResourceOriginalState.fromJson(json["resourceOriginalState"]),
+        response: json["response"] == null ? null : Response.fromJson(json["response"]),
+        serviceData: json["serviceData"] == null ? null : ServiceData.fromJson(json["serviceData"]),
+        serviceName: json["serviceName"] == null ? null : json["serviceName"],
+        status: json["status"] == null ? null : Status.fromJson(json["status"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "authenticationInfo": authenticationInfo == null ? null : authenticationInfo.toJson(),
+        "authorizationInfo": authorizationInfo == null ? null : List<dynamic>.from(authorizationInfo.map((x) => x.toJson())),
+        "metadata": metadata == null ? null : metadata.toJson(),
+        "methodName": methodName == null ? null : methodName,
+        "numResponseItems": numResponseItems == null ? null : numResponseItems,
+        "request": request == null ? null : request.toJson(),
+        "requestMetadata": requestMetadata == null ? null : requestMetadata.toJson(),
+        "resourceLocation": resourceLocation == null ? null : resourceLocation.toJson(),
+        "resourceName": resourceName == null ? null : resourceName,
+        "resourceOriginalState": resourceOriginalState == null ? null : resourceOriginalState.toJson(),
+        "response": response == null ? null : response.toJson(),
+        "serviceData": serviceData == null ? null : serviceData.toJson(),
+        "serviceName": serviceName == null ? null : serviceName,
+        "status": status == null ? null : status.toJson(),
+    };
 }
 
 /**
@@ -118,6 +204,24 @@ class AuthenticationInfo {
     List<ServiceAccountDelegationInfo> serviceAccountDelegationInfo;
     String serviceAccountKeyName;
     AuthenticationInfoThirdPartyPrincipal thirdPartyPrincipal;
+
+    factory AuthenticationInfo.fromJson(Map<String, dynamic> json) => AuthenticationInfo(
+        authoritySelector: json["authoritySelector"] == null ? null : json["authoritySelector"],
+        principalEmail: json["principalEmail"] == null ? null : json["principalEmail"],
+        principalSubject: json["principalSubject"] == null ? null : json["principalSubject"],
+        serviceAccountDelegationInfo: json["serviceAccountDelegationInfo"] == null ? null : List<ServiceAccountDelegationInfo>.from(json["serviceAccountDelegationInfo"].map((x) => ServiceAccountDelegationInfo.fromJson(x))),
+        serviceAccountKeyName: json["serviceAccountKeyName"] == null ? null : json["serviceAccountKeyName"],
+        thirdPartyPrincipal: json["thirdPartyPrincipal"] == null ? null : AuthenticationInfoThirdPartyPrincipal.fromJson(json["thirdPartyPrincipal"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "authoritySelector": authoritySelector == null ? null : authoritySelector,
+        "principalEmail": principalEmail == null ? null : principalEmail,
+        "principalSubject": principalSubject == null ? null : principalSubject,
+        "serviceAccountDelegationInfo": serviceAccountDelegationInfo == null ? null : List<dynamic>.from(serviceAccountDelegationInfo.map((x) => x.toJson())),
+        "serviceAccountKeyName": serviceAccountKeyName == null ? null : serviceAccountKeyName,
+        "thirdPartyPrincipal": thirdPartyPrincipal == null ? null : thirdPartyPrincipal.toJson(),
+    };
 }
 
 /**
@@ -131,6 +235,16 @@ class ServiceAccountDelegationInfo {
 
     FirstPartyPrincipal firstPartyPrincipal;
     ServiceAccountDelegationInfoThirdPartyPrincipal thirdPartyPrincipal;
+
+    factory ServiceAccountDelegationInfo.fromJson(Map<String, dynamic> json) => ServiceAccountDelegationInfo(
+        firstPartyPrincipal: json["firstPartyPrincipal"] == null ? null : FirstPartyPrincipal.fromJson(json["firstPartyPrincipal"]),
+        thirdPartyPrincipal: json["thirdPartyPrincipal"] == null ? null : ServiceAccountDelegationInfoThirdPartyPrincipal.fromJson(json["thirdPartyPrincipal"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "firstPartyPrincipal": firstPartyPrincipal == null ? null : firstPartyPrincipal.toJson(),
+        "thirdPartyPrincipal": thirdPartyPrincipal == null ? null : thirdPartyPrincipal.toJson(),
+    };
 }
 
 /**
@@ -144,6 +258,16 @@ class FirstPartyPrincipal {
 
     String principalEmail;
     ServiceMetadata serviceMetadata;
+
+    factory FirstPartyPrincipal.fromJson(Map<String, dynamic> json) => FirstPartyPrincipal(
+        principalEmail: json["principalEmail"] == null ? null : json["principalEmail"],
+        serviceMetadata: json["serviceMetadata"] == null ? null : ServiceMetadata.fromJson(json["serviceMetadata"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "principalEmail": principalEmail == null ? null : principalEmail,
+        "serviceMetadata": serviceMetadata == null ? null : serviceMetadata.toJson(),
+    };
 }
 
 /**
@@ -155,6 +279,14 @@ class ServiceMetadata {
     });
 
     Map<String, Map<String, dynamic>> fields;
+
+    factory ServiceMetadata.fromJson(Map<String, dynamic> json) => ServiceMetadata(
+        fields: json["fields"] == null ? null : Map.from(json["fields"]).map((k, v) => MapEntry<String, Map<String, dynamic>>(k, Map.from(v).map((k, v) => MapEntry<String, dynamic>(k, v)))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "fields": fields == null ? null : Map.from(fields).map((k, v) => MapEntry<String, dynamic>(k, Map.from(v).map((k, v) => MapEntry<String, dynamic>(k, v)))),
+    };
 }
 
 /**
@@ -166,6 +298,14 @@ class ServiceAccountDelegationInfoThirdPartyPrincipal {
     });
 
     ThirdPartyClaims thirdPartyClaims;
+
+    factory ServiceAccountDelegationInfoThirdPartyPrincipal.fromJson(Map<String, dynamic> json) => ServiceAccountDelegationInfoThirdPartyPrincipal(
+        thirdPartyClaims: json["thirdPartyClaims"] == null ? null : ThirdPartyClaims.fromJson(json["thirdPartyClaims"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "thirdPartyClaims": thirdPartyClaims == null ? null : thirdPartyClaims.toJson(),
+    };
 }
 
 /**
@@ -177,6 +317,14 @@ class ThirdPartyClaims {
     });
 
     Map<String, Map<String, dynamic>> fields;
+
+    factory ThirdPartyClaims.fromJson(Map<String, dynamic> json) => ThirdPartyClaims(
+        fields: json["fields"] == null ? null : Map.from(json["fields"]).map((k, v) => MapEntry<String, Map<String, dynamic>>(k, Map.from(v).map((k, v) => MapEntry<String, dynamic>(k, v)))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "fields": fields == null ? null : Map.from(fields).map((k, v) => MapEntry<String, dynamic>(k, Map.from(v).map((k, v) => MapEntry<String, dynamic>(k, v)))),
+    };
 }
 
 /**
@@ -191,6 +339,14 @@ class AuthenticationInfoThirdPartyPrincipal {
     });
 
     Map<String, Map<String, dynamic>> fields;
+
+    factory AuthenticationInfoThirdPartyPrincipal.fromJson(Map<String, dynamic> json) => AuthenticationInfoThirdPartyPrincipal(
+        fields: json["fields"] == null ? null : Map.from(json["fields"]).map((k, v) => MapEntry<String, Map<String, dynamic>>(k, Map.from(v).map((k, v) => MapEntry<String, dynamic>(k, v)))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "fields": fields == null ? null : Map.from(fields).map((k, v) => MapEntry<String, dynamic>(k, Map.from(v).map((k, v) => MapEntry<String, dynamic>(k, v)))),
+    };
 }
 
 /**
@@ -208,6 +364,20 @@ class AuthorizationInfo {
     String permission;
     String resource;
     ResourceAttributes resourceAttributes;
+
+    factory AuthorizationInfo.fromJson(Map<String, dynamic> json) => AuthorizationInfo(
+        granted: json["granted"] == null ? null : json["granted"],
+        permission: json["permission"] == null ? null : json["permission"],
+        resource: json["resource"] == null ? null : json["resource"],
+        resourceAttributes: json["resourceAttributes"] == null ? null : ResourceAttributes.fromJson(json["resourceAttributes"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "granted": granted == null ? null : granted,
+        "permission": permission == null ? null : permission,
+        "resource": resource == null ? null : resource,
+        "resourceAttributes": resourceAttributes == null ? null : resourceAttributes.toJson(),
+    };
 }
 
 /**
@@ -230,6 +400,20 @@ class ResourceAttributes {
     String name;
     String service;
     String type;
+
+    factory ResourceAttributes.fromJson(Map<String, dynamic> json) => ResourceAttributes(
+        labels: json["labels"] == null ? null : Map.from(json["labels"]).map((k, v) => MapEntry<String, String>(k, v)),
+        name: json["name"] == null ? null : json["name"],
+        service: json["service"] == null ? null : json["service"],
+        type: json["type"] == null ? null : json["type"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "labels": labels == null ? null : Map.from(labels).map((k, v) => MapEntry<String, dynamic>(k, v)),
+        "name": name == null ? null : name,
+        "service": service == null ? null : service,
+        "type": type == null ? null : type,
+    };
 }
 
 /**
@@ -242,6 +426,14 @@ class Metadata {
     });
 
     Map<String, Map<String, dynamic>> fields;
+
+    factory Metadata.fromJson(Map<String, dynamic> json) => Metadata(
+        fields: json["fields"] == null ? null : Map.from(json["fields"]).map((k, v) => MapEntry<String, Map<String, dynamic>>(k, Map.from(v).map((k, v) => MapEntry<String, dynamic>(k, v)))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "fields": fields == null ? null : Map.from(fields).map((k, v) => MapEntry<String, dynamic>(k, Map.from(v).map((k, v) => MapEntry<String, dynamic>(k, v)))),
+    };
 }
 
 /**
@@ -258,6 +450,14 @@ class Request {
     });
 
     Map<String, Map<String, dynamic>> fields;
+
+    factory Request.fromJson(Map<String, dynamic> json) => Request(
+        fields: json["fields"] == null ? null : Map.from(json["fields"]).map((k, v) => MapEntry<String, Map<String, dynamic>>(k, Map.from(v).map((k, v) => MapEntry<String, dynamic>(k, v)))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "fields": fields == null ? null : Map.from(fields).map((k, v) => MapEntry<String, dynamic>(k, Map.from(v).map((k, v) => MapEntry<String, dynamic>(k, v)))),
+    };
 }
 
 /**
@@ -277,6 +477,22 @@ class RequestMetadata {
     String callerSuppliedUserAgent;
     DestinationAttributes destinationAttributes;
     RequestAttributes requestAttributes;
+
+    factory RequestMetadata.fromJson(Map<String, dynamic> json) => RequestMetadata(
+        callerIp: json["callerIp"] == null ? null : json["callerIp"],
+        callerNetwork: json["callerNetwork"] == null ? null : json["callerNetwork"],
+        callerSuppliedUserAgent: json["callerSuppliedUserAgent"] == null ? null : json["callerSuppliedUserAgent"],
+        destinationAttributes: json["destinationAttributes"] == null ? null : DestinationAttributes.fromJson(json["destinationAttributes"]),
+        requestAttributes: json["requestAttributes"] == null ? null : RequestAttributes.fromJson(json["requestAttributes"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "callerIp": callerIp == null ? null : callerIp,
+        "callerNetwork": callerNetwork == null ? null : callerNetwork,
+        "callerSuppliedUserAgent": callerSuppliedUserAgent == null ? null : callerSuppliedUserAgent,
+        "destinationAttributes": destinationAttributes == null ? null : destinationAttributes.toJson(),
+        "requestAttributes": requestAttributes == null ? null : requestAttributes.toJson(),
+    };
 }
 
 /**
@@ -300,6 +516,22 @@ class DestinationAttributes {
     int port;
     String principal;
     String regionCode;
+
+    factory DestinationAttributes.fromJson(Map<String, dynamic> json) => DestinationAttributes(
+        ip: json["ip"] == null ? null : json["ip"],
+        labels: json["labels"] == null ? null : Map.from(json["labels"]).map((k, v) => MapEntry<String, String>(k, v)),
+        port: json["port"] == null ? null : json["port"],
+        principal: json["principal"] == null ? null : json["principal"],
+        regionCode: json["regionCode"] == null ? null : json["regionCode"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "ip": ip == null ? null : ip,
+        "labels": labels == null ? null : Map.from(labels).map((k, v) => MapEntry<String, dynamic>(k, v)),
+        "port": port == null ? null : port,
+        "principal": principal == null ? null : principal,
+        "regionCode": regionCode == null ? null : regionCode,
+    };
 }
 
 /**
@@ -340,6 +572,36 @@ class RequestAttributes {
     String scheme;
     int size;
     DateTime time;
+
+    factory RequestAttributes.fromJson(Map<String, dynamic> json) => RequestAttributes(
+        auth: json["auth"] == null ? null : Auth.fromJson(json["auth"]),
+        headers: json["headers"] == null ? null : Map.from(json["headers"]).map((k, v) => MapEntry<String, String>(k, v)),
+        host: json["host"] == null ? null : json["host"],
+        id: json["id"] == null ? null : json["id"],
+        method: json["method"] == null ? null : json["method"],
+        path: json["path"] == null ? null : json["path"],
+        protocol: json["protocol"] == null ? null : json["protocol"],
+        query: json["query"] == null ? null : json["query"],
+        reason: json["reason"] == null ? null : json["reason"],
+        scheme: json["scheme"] == null ? null : json["scheme"],
+        size: json["size"] == null ? null : json["size"],
+        time: json["time"] == null ? null : DateTime.parse(json["time"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "auth": auth == null ? null : auth.toJson(),
+        "headers": headers == null ? null : Map.from(headers).map((k, v) => MapEntry<String, dynamic>(k, v)),
+        "host": host == null ? null : host,
+        "id": id == null ? null : id,
+        "method": method == null ? null : method,
+        "path": path == null ? null : path,
+        "protocol": protocol == null ? null : protocol,
+        "query": query == null ? null : query,
+        "reason": reason == null ? null : reason,
+        "scheme": scheme == null ? null : scheme,
+        "size": size == null ? null : size,
+        "time": time == null ? null : time.toIso8601String(),
+    };
 }
 
 /**
@@ -360,6 +622,22 @@ class Auth {
     Claims claims;
     String presenter;
     String principal;
+
+    factory Auth.fromJson(Map<String, dynamic> json) => Auth(
+        accessLevels: json["accessLevels"] == null ? null : List<String>.from(json["accessLevels"].map((x) => x)),
+        audiences: json["audiences"] == null ? null : List<String>.from(json["audiences"].map((x) => x)),
+        claims: json["claims"] == null ? null : Claims.fromJson(json["claims"]),
+        presenter: json["presenter"] == null ? null : json["presenter"],
+        principal: json["principal"] == null ? null : json["principal"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "accessLevels": accessLevels == null ? null : List<dynamic>.from(accessLevels.map((x) => x)),
+        "audiences": audiences == null ? null : List<dynamic>.from(audiences.map((x) => x)),
+        "claims": claims == null ? null : claims.toJson(),
+        "presenter": presenter == null ? null : presenter,
+        "principal": principal == null ? null : principal,
+    };
 }
 
 /**
@@ -385,6 +663,14 @@ class Claims {
     });
 
     Map<String, Map<String, dynamic>> fields;
+
+    factory Claims.fromJson(Map<String, dynamic> json) => Claims(
+        fields: json["fields"] == null ? null : Map.from(json["fields"]).map((k, v) => MapEntry<String, Map<String, dynamic>>(k, Map.from(v).map((k, v) => MapEntry<String, dynamic>(k, v)))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "fields": fields == null ? null : Map.from(fields).map((k, v) => MapEntry<String, dynamic>(k, Map.from(v).map((k, v) => MapEntry<String, dynamic>(k, v)))),
+    };
 }
 
 /**
@@ -398,6 +684,16 @@ class ResourceLocation {
 
     List<String> currentLocations;
     List<String> originalLocations;
+
+    factory ResourceLocation.fromJson(Map<String, dynamic> json) => ResourceLocation(
+        currentLocations: json["currentLocations"] == null ? null : List<String>.from(json["currentLocations"].map((x) => x)),
+        originalLocations: json["originalLocations"] == null ? null : List<String>.from(json["originalLocations"].map((x) => x)),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "currentLocations": currentLocations == null ? null : List<dynamic>.from(currentLocations.map((x) => x)),
+        "originalLocations": originalLocations == null ? null : List<dynamic>.from(originalLocations.map((x) => x)),
+    };
 }
 
 /**
@@ -415,6 +711,14 @@ class ResourceOriginalState {
     });
 
     Map<String, Map<String, dynamic>> fields;
+
+    factory ResourceOriginalState.fromJson(Map<String, dynamic> json) => ResourceOriginalState(
+        fields: json["fields"] == null ? null : Map.from(json["fields"]).map((k, v) => MapEntry<String, Map<String, dynamic>>(k, Map.from(v).map((k, v) => MapEntry<String, dynamic>(k, v)))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "fields": fields == null ? null : Map.from(fields).map((k, v) => MapEntry<String, dynamic>(k, Map.from(v).map((k, v) => MapEntry<String, dynamic>(k, v)))),
+    };
 }
 
 /**
@@ -431,6 +735,14 @@ class Response {
     });
 
     Map<String, Map<String, dynamic>> fields;
+
+    factory Response.fromJson(Map<String, dynamic> json) => Response(
+        fields: json["fields"] == null ? null : Map.from(json["fields"]).map((k, v) => MapEntry<String, Map<String, dynamic>>(k, Map.from(v).map((k, v) => MapEntry<String, dynamic>(k, v)))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "fields": fields == null ? null : Map.from(fields).map((k, v) => MapEntry<String, dynamic>(k, Map.from(v).map((k, v) => MapEntry<String, dynamic>(k, v)))),
+    };
 }
 
 /**
@@ -446,6 +758,14 @@ class ServiceData {
     });
 
     Map<String, Map<String, dynamic>> fields;
+
+    factory ServiceData.fromJson(Map<String, dynamic> json) => ServiceData(
+        fields: json["fields"] == null ? null : Map.from(json["fields"]).map((k, v) => MapEntry<String, Map<String, dynamic>>(k, Map.from(v).map((k, v) => MapEntry<String, dynamic>(k, v)))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "fields": fields == null ? null : Map.from(fields).map((k, v) => MapEntry<String, dynamic>(k, Map.from(v).map((k, v) => MapEntry<String, dynamic>(k, v)))),
+    };
 }
 
 /**
@@ -461,6 +781,18 @@ class Status {
     int code;
     List<Detail> details;
     String message;
+
+    factory Status.fromJson(Map<String, dynamic> json) => Status(
+        code: json["code"] == null ? null : json["code"],
+        details: json["details"] == null ? null : List<Detail>.from(json["details"].map((x) => Detail.fromJson(x))),
+        message: json["message"] == null ? null : json["message"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "code": code == null ? null : code,
+        "details": details == null ? null : List<dynamic>.from(details.map((x) => x.toJson())),
+        "message": message == null ? null : message,
+    };
 }
 
 /**
@@ -552,6 +884,16 @@ class Detail {
 
     String typeUrl;
     String value;
+
+    factory Detail.fromJson(Map<String, dynamic> json) => Detail(
+        typeUrl: json["typeUrl"] == null ? null : json["typeUrl"],
+        value: json["value"] == null ? null : json["value"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "typeUrl": typeUrl == null ? null : typeUrl,
+        "value": value == null ? null : value,
+    };
 }
 
 /**
@@ -569,6 +911,42 @@ class Resource {
 
     Map<String, String> labels;
     String type;
+
+    factory Resource.fromJson(Map<String, dynamic> json) => Resource(
+        labels: json["labels"] == null ? null : Map.from(json["labels"]).map((k, v) => MapEntry<String, String>(k, v)),
+        type: json["type"] == null ? null : json["type"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "labels": labels == null ? null : Map.from(labels).map((k, v) => MapEntry<String, dynamic>(k, v)),
+        "type": type == null ? null : type,
+    };
 }
 
 enum InsertId { DEFAULT, DEBUG, INFO, NOTICE, WARNING, ERROR, CRITICAL, ALERT, EMERGENCY }
+
+final insertIdValues = EnumValues({
+    "ALERT": InsertId.ALERT,
+    "CRITICAL": InsertId.CRITICAL,
+    "DEBUG": InsertId.DEBUG,
+    "DEFAULT": InsertId.DEFAULT,
+    "EMERGENCY": InsertId.EMERGENCY,
+    "ERROR": InsertId.ERROR,
+    "INFO": InsertId.INFO,
+    "NOTICE": InsertId.NOTICE,
+    "WARNING": InsertId.WARNING
+});
+
+class EnumValues<T> {
+    Map<String, T> map;
+    Map<T, String> reverseMap;
+
+    EnumValues(this.map);
+
+    Map<T, String> get reverse {
+        if (reverseMap == null) {
+            reverseMap = map.map((k, v) => new MapEntry(v, k));
+        }
+        return reverseMap;
+    }
+}

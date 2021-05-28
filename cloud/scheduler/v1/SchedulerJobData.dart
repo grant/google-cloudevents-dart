@@ -12,6 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// To parse this JSON data, do
+//
+//     final schedulerJobData = schedulerJobDataFromJson(jsonString);
+
+import 'dart:convert';
+
+SchedulerJobData schedulerJobDataFromJson(String str) => SchedulerJobData.fromJson(json.decode(str));
+
+String schedulerJobDataToJson(SchedulerJobData data) => json.encode(data.toJson());
+
 /**
  * Scheduler job data.
  */
@@ -21,4 +31,12 @@ class SchedulerJobData {
     });
 
     String customData;
+
+    factory SchedulerJobData.fromJson(Map<String, dynamic> json) => SchedulerJobData(
+        customData: json["customData"] == null ? null : json["customData"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "customData": customData == null ? null : customData,
+    };
 }
